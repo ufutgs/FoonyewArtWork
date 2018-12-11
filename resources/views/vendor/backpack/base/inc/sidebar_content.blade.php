@@ -6,3 +6,4 @@
 <li><a href="{{ backpack_url('event') }}"><i class="fa fa-files-o"></i> <span>Event</span></a></li>
 <li><a href="{{ backpack_url('comment') }}"><i class="fa fa-files-o"></i> <span>Comment</span></a></li>
 <li><a href="{{ backpack_url('user') }}"><i class="fa fa-files-o"></i> <span>User</span></a></li>
+<li><a href="{{ backpack_url('elfinder') }}"><i class="fa fa-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>

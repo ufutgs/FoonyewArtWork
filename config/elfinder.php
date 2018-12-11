@@ -26,7 +26,11 @@ return [
     |    ]
     */
     'disks' => [
-        // 'uploads',
+        'uploads'=>[
+            'driver'=>'local',
+            'root'=> public_path('/')
+
+        ],
     ],
 
     /*

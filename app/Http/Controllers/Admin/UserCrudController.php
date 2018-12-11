@@ -31,9 +31,56 @@ class UserCrudController extends CrudController
         | CrudPanel Configuration
         |--------------------------------------------------------------------------
         */
+        $this->crud->addField(
+            [   // Text
+                'name' => 'name',
+                'label' => "Name",
+                'type' => 'text',
+            ]);
+        $this->crud->addField( [   // Text
+                'name' => 'username',
+                'label' => "Username",
+                'type' => 'text',
+            ]);
+        $this->crud->addField(  [   // Text
+                'name' => 'email',
+                'label' => "Email",
+                'type' => 'text',
+            ]);
+        $this->crud->addField(  [   // Text
+                'name' => 'email_verified',
+                'label' => "Email Verified",
+                'type' => 'text',
+            ]);
+        $this->crud->addField( [   // Text
+                'name' => 'password',
+                'label' => "Password",
+                'type' => 'text',
+            ]);
+
+            $this->crud->addField([ // image
+                'label' => "Profile Image",
+                'name' => "ProfilePhoto",
+                'type' => 'image',
+                'upload' => true,
+                'crop' => true, // set to true to allow cropping, false to disable
+                'aspect_ratio' => 1.9,
+              // ommit or set to 0 to allow any aspect ratio
+             //  'prefix' => 'uploads/' // in case you only store the filename in the database, this text will be prepended to the database value
+            ]);
+        $this->crud->setColumns(
+            ['name','username','email','email_verified','password']
+
+        );
+        $this->crud->addColumn([
+            'name' => 'ProfilePhoto', // The db column name
+            'label' => "Profile image", // Table column heading
+            'type' => 'image',
+        ]);
+
 
         // TODO: remove setFromDb() and manually define Fields and Columns
-        $this->crud->setFromDb();
+
 
         // add asterisk for fields that are required in UserRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
