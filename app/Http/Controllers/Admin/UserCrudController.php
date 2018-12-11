@@ -45,26 +45,26 @@ class UserCrudController extends CrudController
         $this->crud->addField(  [   // Text
                 'name' => 'email',
                 'label' => "Email",
-                'type' => 'text',
+                'type' => 'email',
             ]);
         $this->crud->addField(  [   // Text
                 'name' => 'email_verified',
                 'label' => "Email Verified",
-                'type' => 'text',
+                'type' => 'email',
             ]);
         $this->crud->addField( [   // Text
                 'name' => 'password',
                 'label' => "Password",
-                'type' => 'text',
+                'type' => 'password',
             ]);
 
             $this->crud->addField([ // image
-                'label' => "Profile Image",
+                'label' => "Profile pic",
                 'name' => "ProfilePhoto",
                 'type' => 'image',
                 'upload' => true,
                 'crop' => true, // set to true to allow cropping, false to disable
-                'aspect_ratio' => 1.9,
+                'aspect_ratio' => 0,
               // ommit or set to 0 to allow any aspect ratio
              //  'prefix' => 'uploads/' // in case you only store the filename in the database, this text will be prepended to the database value
             ]);

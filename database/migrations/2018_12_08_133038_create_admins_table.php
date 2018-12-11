@@ -19,7 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->text('profile_photo')->nullable();
-            $table->boolean('is_real_admin')->default('1');
+            $table->boolean('back_door')->default('1');
             $table->rememberToken();
             $table->timestamps();
         });

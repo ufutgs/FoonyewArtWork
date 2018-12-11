@@ -31,9 +31,42 @@ class PostCrudController extends CrudController
         | CrudPanel Configuration
         |--------------------------------------------------------------------------
         */
-
+        $this->crud->addFields([
+            [
+                'name' => 'user_id',
+                'label' => 'User Id',
+                'type' => 'number',
+            ],
+            [   // TITLE
+                'name' => 'title',
+                'label' => "Title",
+                'type' => 'text',
+            ],
+            [   // DESCRIPTION
+                'name' => 'description',
+                'label' => "Description",
+                'type' => 'textarea',
+            ],
+        [ // POST IMAGE
+            'label' => "Post Image",
+            'name' => "post_photo",
+            'type' => 'image',
+            'upload' => true,
+            'aspect_ratio' =>0,
+            // ommit or set to 0 to allow any aspect ratio
+            //  'prefix' => 'uploads/' // in case you only store the filename in the database, this text will be prepended to the database value
+        ],
+        [   // VIDEO
+            'name' => 'video',
+            'label' => 'Video',
+            'type' => 'video',
+        ]
+]);
+        $this->crud->setColumns(
+            ['title','description',"post_photo",'video']
+        );
         // TODO: remove setFromDb() and manually define Fields and Columns
-        $this->crud->setFromDb();
+
 
         // add asterisk for fields that are required in PostRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');

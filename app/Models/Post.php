@@ -28,13 +28,22 @@ class Post extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            \Storage::disk('uploads')->delete($obj->post_photo);
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+public function user()
+{
+    $this->belongsTo('App\Models\User');
+}
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -52,11 +61,11 @@ class Post extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function setImageAttribute($value)
+    public function setPost_photoAttribute($value)
     {
         $attribute_name = "post_photo";
-        $disk = "public_folder";
-        $destination_path = "uploads/folder_1/subfolder_3";
+        $disk = "uploads";
+        $destination_path = "uploads/post_photo";
 
         // if the image was erased
         if ($value==null) {

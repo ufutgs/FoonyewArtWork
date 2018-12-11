@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
-use Tightenco\Parental\HasParentModel;
-class User extends \App\User
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class User extends Authenticatable
 {
-    use HasParentModel;
     use CrudTrait;
 
     /*
@@ -24,11 +25,51 @@ class User extends \App\User
     // protected $hidden = [];
     // protected $dates = [];
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            \Storage::disk('uploads')->delete($obj->ProfilePhoto);
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+   public function posts()
+   {
+       $this->hasMany('App\Models\Post');
+   }
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESORS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
     public function setProfilePhotoAttribute($value)
     {
         $attribute_name = "ProfilePhoto";
         $disk = "uploads";
-        $destination_path = "uploads/photo";
+        $destination_path = "uploads/profile_photo";
 
         // if the image was erased
         if ($value==null) {
@@ -52,35 +93,6 @@ class User extends \App\User
             $this->attributes[$attribute_name] = $destination_path.'/'.$filename;
         }
     }
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESORS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
 
 
 }
