@@ -48,11 +48,7 @@ class AdminCrudController extends CrudController
                 'label' => "Email",
                 'type' => 'email',
             ],
-            [   // Text
-                'name' => 'email_verified',
-                'label' => "Email Verified",
-                'type' => 'email',
-            ],
+
             [   // Text
                 'name' => 'password',
                 'label' => "Password",
@@ -76,17 +72,19 @@ class AdminCrudController extends CrudController
             ],
         ]);
         $this->crud->setColumns(
-            ['name','username','email','email_verified','password']
+            ['name','username','email']
         );
-        $this->crud->addColumns([
+        $this->crud->addColumns(
+            [[
             'name' => 'ProfilePhoto', // The db column name
             'label' => "Profile image", // Table column heading
             'type' => 'image',
         ],
             [
-                    'name' => 'name',
-                    'label' => 'Status',
-                    'type' => 'boolean',
+                'name' => 'back_door',
+                'label' => 'Backdoor',
+                'type' => 'boolean',
+        ]
         ]);
 
 

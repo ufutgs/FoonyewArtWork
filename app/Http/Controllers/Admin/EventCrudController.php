@@ -31,9 +31,75 @@ class EventCrudController extends CrudController
         | CrudPanel Configuration
         |--------------------------------------------------------------------------
         */
+        $this->crud->addFields([
+            [
+                'label' => "User",
+                'type' => 'select2',
+                'name' => 'admin_id', // the db column for the foreign key
+                'entity' => 'admin', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\BackpackUser", // foreign key model
+
+            ],
+            [   // TITLE
+                'name' => 'title',
+                'label' => "Title",
+                'type' => 'text',
+            ],
+            [   // DESCRIPTION
+                'name' => 'description',
+                'label' => "Description",
+                'type' => 'textarea',
+            ],
+            [ // POST IMAGE
+                'label' => "Event Photo",
+                'name' => "EventPhoto",
+                'type' => 'upload_multiple',
+                'upload' => true,
+                'disk'=>'uploads',
+                // ommit or set to 0 to allow any aspect ratio
+                //  'prefix' => 'uploads/' // in case you only store the filename in the database, this text will be prepended to the database value
+            ],
+            [   // VIDEO
+                'name' => 'video',
+                'label' => 'Video',
+                'type' => 'video',
+            ]]);
+        $this->crud->setColumns([
+            [
+                'label' => "User",
+                'type' => 'select',
+                'name' => 'admin_id', // the db column for the foreign key
+                'entity' => 'admin', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\BackpackUser", // foreign key model
+
+            ],
+            [   // TITLE
+                'name' => 'title',
+                'label' => "Title",
+                'type' => 'text',
+            ],
+            [   // DESCRIPTION
+                'name' => 'description',
+                'label' => "Description",
+                'type' => 'text',
+            ],
+            [
+                'label' => "Event Photo",
+                'name' => "EventPhoto",
+                'type' => 'upload_multiple',
+
+            ],
+            [   // VIDEO
+                'name' => 'video',
+                'label' => 'Video',
+                'type' => 'video',
+            ]
+        ]);
 
         // TODO: remove setFromDb() and manually define Fields and Columns
-        $this->crud->setFromDb();
+
 
         // add asterisk for fields that are required in EventRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');

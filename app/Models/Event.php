@@ -19,7 +19,7 @@ class Event extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['user_id','title','EventPhoto','video','description'];
+    protected $fillable = ['admin_id','title','EventPhoto','video','description'];
     //    // protected $hidden = [];
     // protected $dates = [];
 

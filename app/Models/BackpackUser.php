@@ -6,13 +6,13 @@ use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNo
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Backpack\CRUD\CrudTrait;
 class BackpackUser extends Authenticatable
 {
-
+use CrudTrait;
     protected $table = 'admins';
     protected $guarded = ['id'];
-    protected $fillable = ['name','username','email','email_verified','password','ProfilePhoto','back_door'];
+    protected $fillable = ['name','username','email','password','ProfilePhoto','back_door'];
     /*
    |--------------------------------------------------------------------------
    | GLOBAL VARIABLES
@@ -73,6 +73,10 @@ public function events()
      | MUTATORS
      |--------------------------------------------------------------------------
      */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password']=bcrypt($value);
+    }
     public function setProfilePhotoAttribute($value)
     {
         $attribute_name = "ProfilePhoto";
