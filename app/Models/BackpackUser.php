@@ -12,7 +12,7 @@ class BackpackUser extends Authenticatable
 
     protected $table = 'admins';
     protected $guarded = ['id'];
-    protected $fillable = ['name','username','email','email_verified','password','profile_photo','is_real_admin'];
+    protected $fillable = ['name','username','email','email_verified','password','ProfilePhoto','back_door'];
     /*
    |--------------------------------------------------------------------------
    | GLOBAL VARIABLES
@@ -40,17 +40,42 @@ class BackpackUser extends Authenticatable
     {
         parent::boot();
         static::deleting(function($obj) {
-            \Storage::disk('uploads')->delete($obj->image);
+            \Storage::disk('uploads')->delete($obj->ProfilePhoto);
         });
     }
+    /*
+ |--------------------------------------------------------------------------
+ | FUNCTIONS
+ |--------------------------------------------------------------------------
+ */
+public function events()
+{
+    return $this->hasMany('App\Models\Event');
+}
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+    /*
+   |--------------------------------------------------------------------------
+   | SCOPES
+   |--------------------------------------------------------------------------
+   */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESORS
+    |--------------------------------------------------------------------------
+    */
     /*
      |--------------------------------------------------------------------------
      | MUTATORS
      |--------------------------------------------------------------------------
      */
-    public function setProfile_photoAttribute($value)
+    public function setProfilePhotoAttribute($value)
     {
-        $attribute_name = "profile_photo";
+        $attribute_name = "ProfilePhoto";
         $disk = "uploads";
         $destination_path = "uploads/photo";
 

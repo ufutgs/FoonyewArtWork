@@ -46,7 +46,7 @@ class User extends Authenticatable
     */
    public function posts()
    {
-       $this->hasMany('App\Models\Post');
+      return $this->hasMany('App\Models\Post');
    }
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +70,6 @@ class User extends Authenticatable
         $attribute_name = "ProfilePhoto";
         $disk = "uploads";
         $destination_path = "uploads/profile_photo";
-
         // if the image was erased
         if ($value==null) {
             // delete the image from disk

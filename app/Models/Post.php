@@ -19,7 +19,7 @@ class Post extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
      protected $guarded = ['id'];
-    protected $fillable = ['user_id','title','post_photo','video','description'];
+    protected $fillable = ['user_id','title','PostPhoto','video','description'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -31,10 +31,15 @@ class Post extends Model
     public static function boot()
     {
         parent::boot();
-        static::deleting(function($obj) {
-            \Storage::disk('uploads')->delete($obj->post_photo);
+        static::deleting(function($obj)
+        {if (count((array)$obj->PostPhoto)) {
+                foreach ($obj->PostPhoto as $file_path) {
+                    \Storage::disk('uploads')->delete($file_path);
+                }
+            }
         });
-    }
+
+        }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -42,7 +47,7 @@ class Post extends Model
     */
 public function user()
 {
-    $this->belongsTo('App\Models\User');
+  return  $this->belongsTo('App\Models\User');
 }
     /*
     |--------------------------------------------------------------------------
@@ -61,32 +66,22 @@ public function user()
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function setPost_photoAttribute($value)
+    public function setPostPhotoAttribute($value)
     {
-        $attribute_name = "post_photo";
+        $attribute_name = "PostPhoto";
         $disk = "uploads";
         $destination_path = "uploads/post_photo";
+    $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
 
-        // if the image was erased
-        if ($value==null) {
-            // delete the image from disk
-            \Storage::disk($disk)->delete($this->{$attribute_name});
 
-            // set null in the database column
-            $this->attributes[$attribute_name] = null;
-        }
-
-        // if a base64 was sent, store it in the db
-        if (starts_with($value, 'data:image'))
-        {
-            // 0. Make the image
-            $image = \Image::make($value);
-            // 1. Generate a filename.
-            $filename = md5($value.time()).'.jpg';
-            // 2. Store the image on disk.
-            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-            // 3. Save the path to the database
-            $this->attributes[$attribute_name] = $destination_path.'/'.$filename;
-        }
     }
+/*|--------------------------------------------------------------------------
+| Attribute Casting
+|--------------------------------------------------------------------------
+*/
+protected $casts=[
+    'PostPhoto'=>'array',
+    'video'=>'array',
+];
+
 }

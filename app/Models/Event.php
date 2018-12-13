@@ -19,7 +19,7 @@ class Event extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['user_id','title','post_photo','video','description'];
+    protected $fillable = ['user_id','title','EventPhoto','video','description'];
     //    // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,7 +34,10 @@ class Event extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+public function admin()
+{
+    return $this->belongsTo('App\Models\BackpackUser');
+}
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -52,4 +55,23 @@ class Event extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setEventPhotoAttribute($value)
+    {
+        $attribute_name = "EventPhoto";
+        $disk = "uploads";
+        $destination_path = "uploads/event_photo";
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+
+
+    }
+    /*|--------------------------------------------------------------------------
+    | Attribute Casting
+    |--------------------------------------------------------------------------
+    */
+    protected $casts=[
+        'EventPhoto'=>'array',
+        'video'=>'array',
+    ];
+
+
 }

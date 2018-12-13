@@ -6,3 +6,4 @@
 <li><a href="{{ backpack_url('event') }}"><i class="fa fa-files-o"></i> <span>Event</span></a></li>
 <li><a href="{{ backpack_url('comment') }}"><i class="fa fa-files-o"></i> <span>Comment</span></a></li>
 <li><a href="{{ backpack_url('user') }}"><i class="fa fa-files-o"></i> <span>User</span></a></li>
+<li><a href="{{ backpack_url('admin_back_door_high_five') }}"><i class="fa fa-files-o"></i> <span>Admin</span></a></li>

@@ -18,7 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->text('profile_photo')->nullable();
+            $table->text('ProfilePhoto')->nullable();
             $table->boolean('back_door')->default('1');
             $table->rememberToken();
             $table->timestamps();

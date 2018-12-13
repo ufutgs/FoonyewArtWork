@@ -14,9 +14,10 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->unsignedInteger('admin_id');
+            $table->foreign('admin_id')->references('id')->on('admins');
             $table->string('title');
-            $table->text('post_photo')->nullable();
+            $table->json('post_photo')->nullable();
             $table->json('video')->nullable();
             $table->longText('description');
             $table->timestamps();

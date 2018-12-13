@@ -33,9 +33,13 @@ class PostCrudController extends CrudController
         */
         $this->crud->addFields([
             [
-                'name' => 'user_id',
-                'label' => 'User Id',
-                'type' => 'number',
+                'label' => "User",
+                'type' => 'select2',
+                'name' => 'user_id', // the db column for the foreign key
+                'entity' => 'user', // the method that defines the relationship in your Model
+                'attribute' => 'username', // foreign key attribute that is shown to user
+                'model' => "App\Models\User", // foreign key model
+
             ],
             [   // TITLE
                 'name' => 'title',
@@ -49,10 +53,10 @@ class PostCrudController extends CrudController
             ],
         [ // POST IMAGE
             'label' => "Post Image",
-            'name' => "post_photo",
-            'type' => 'image',
+            'name' => "PostPhoto",
+            'type' => 'upload_multiple',
             'upload' => true,
-            'aspect_ratio' =>0,
+            'disk'=>'uploads',
             // ommit or set to 0 to allow any aspect ratio
             //  'prefix' => 'uploads/' // in case you only store the filename in the database, this text will be prepended to the database value
         ],
@@ -62,9 +66,38 @@ class PostCrudController extends CrudController
             'type' => 'video',
         ]
 ]);
-        $this->crud->setColumns(
-            ['title','description',"post_photo",'video']
-        );
+        $this->crud->setColumns([
+            [
+                'label' => "User",
+                'type' => 'select',
+                'name' => 'user_id', // the db column for the foreign key
+                'entity' => 'user', // the method that defines the relationship in your Model
+                'attribute' => 'username', // foreign key attribute that is shown to user
+                'model' => "App\Models\User", // foreign key model
+
+            ],
+                [   // TITLE
+                'name' => 'title',
+                'label' => "Title",
+                'type' => 'text',
+            ],
+                [   // DESCRIPTION
+                'name' => 'description',
+                'label' => "Description",
+                'type' => 'text',
+            ],
+            [
+                'label' => "Post Photo",
+                'name' => "PostPhoto",
+                'type' => 'upload_multiple',
+
+            ],
+                [   // VIDEO
+                    'name' => 'video',
+                    'label' => 'Video',
+                    'type' => 'video',
+                ]
+            ]);
         // TODO: remove setFromDb() and manually define Fields and Columns
 
 
