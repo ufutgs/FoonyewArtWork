@@ -37,21 +37,12 @@ class UserCrudController extends CrudController
                 'label' => "Name",
                 'type' => 'text',
             ],
-     [
-                'name' => 'username',
-                'label' => "Username",
-                'type' => 'text',
-            ],
         [   // Text
                 'name' => 'email',
                 'label' => "Email",
                 'type' => 'email',
             ],
-       [   // Text
-                'name' => 'email_verified',
-                'label' => "Email Verified",
-                'type' => 'email',
-            ],
+
         [   // Text
                 'name' => 'password',
                 'label' => "Password",

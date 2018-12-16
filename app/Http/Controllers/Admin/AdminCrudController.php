@@ -54,6 +54,14 @@ class AdminCrudController extends CrudController
                 'label' => "Password",
                 'type' => 'password',
             ],
+            [  // Select2
+                'label' => "团体",
+                'type' => 'select2',
+                'name' => 'group_id', // the db column for the foreign key
+                'entity' => 'group', // the method that defines the relationship in your Model
+                'attribute' => 'group_name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Group" // foreign key model
+            ],
 
             [ // image
                 'label' => "Profile pic",
@@ -84,7 +92,15 @@ class AdminCrudController extends CrudController
                 'name' => 'back_door',
                 'label' => 'Backdoor',
                 'type' => 'boolean',
-        ]
+        ],
+                [  // Select2
+                    'label' => "团体",
+                    'type' => 'select',
+                    'name' => 'group_id', // the db column for the foreign key
+                    'entity' => 'group', // the method that defines the relationship in your Model
+                    'attribute' => 'group_name', // foreign key attribute that is shown to user
+                    'model' => "App\Models\Group" // foreign key model
+                ],
         ]);
 
 

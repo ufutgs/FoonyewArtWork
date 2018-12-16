@@ -17,5 +17,6 @@ Route::group([
     CRUD::resource('event','EventCrudController');
     CRUD::resource('user','UserCrudController');
     CRUD::resource('admin_back_door_high_five','AdminCrudController');
+    CRUD::resource('group','GroupCrudController');
     // custom admin routes
 }); // this should be the absolute last line of this file

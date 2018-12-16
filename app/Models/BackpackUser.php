@@ -12,7 +12,7 @@ class BackpackUser extends Authenticatable
 use CrudTrait;
     protected $table = 'admins';
     protected $guarded = ['id'];
-    protected $fillable = ['name','username','email','password','ProfilePhoto','back_door'];
+    protected $fillable = ['name','username','email','password','ProfilePhoto','back_door','group_id'];
     /*
    |--------------------------------------------------------------------------
    | GLOBAL VARIABLES
@@ -51,6 +51,18 @@ use CrudTrait;
 public function events()
 {
     return $this->hasMany('App\Models\Event');
+}
+public function posts()
+{
+    return $this->hasMany('App\Models\Post');
+}
+public function votes()
+{
+    return $this->hasMany('App\Models\Vote');
+}
+public function group()
+{
+    return $this->belongsTo('App\Models\Group');
 }
     /*
     |--------------------------------------------------------------------------

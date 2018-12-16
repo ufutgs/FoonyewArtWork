@@ -9,3 +9,4 @@
 @if(\Illuminate\Support\Facades\DB::table('admins')->where('id','=',backpack_user()->id)->value('back_door')==true)
 <li><a href="{{ backpack_url('admin_back_door_high_five') }}"><i class="fa fa-files-o"></i> <span>Admin</span></a></li>
 @endif
+<li><a href="{{ backpack_url('group') }}"><i class="fa fa-files-o"></i> <span>团体</span></a></li>

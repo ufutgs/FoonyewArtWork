@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email_verified')->nullable();
             $table->string('password');
             $table->text('ProfilePhoto');
+            $table->unsignedInteger('group_id');
+            $table->foreign('group_id')->references('id')->on('groups');
             $table->rememberToken();
             $table->timestamps();
         });
