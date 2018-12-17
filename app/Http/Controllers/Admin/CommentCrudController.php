@@ -26,6 +26,43 @@ class CommentCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/comment');
         $this->crud->setEntityNameStrings('comment', 'comments');
 
+        $this->crud->setColumns([
+            [   // TITLE
+                'name' => 'comment',
+                'label' => "留言",
+                'type' => 'text',
+            ],
+            [ // POST IMAGE
+                'label' => "照片",
+                'name' => "CommentPhoto",
+                'type' => 'upload_multiple',
+                'upload' => true,
+                'disk'=>'uploads',
+                // ommit or set to 0 to allow any aspect ratio
+                //  'prefix' => 'uploads/' // in case you only store the filename in the database, this text will be prepended to the database value
+            ],
+            [
+                'label' => "用户",
+                'type' => 'select2',
+                'name' => 'user_id', // the db column for the foreign key
+                'entity' => 'user', // the method that defines the relationship in your Model
+                'attribute' => 'username', // foreign key attribute that is shown to user
+                'model' => "App\Models\User", // foreign key model
+
+            ],
+            [
+                'label' => "帖子",
+                'type' => 'select2',
+                'name' => 'post_id', // the db column for the foreign key
+                'entity' => 'post', // the method that defines the relationship in your Model
+                'attribute' => 'title', // foreign key attribute that is shown to user
+                'model' => "App\Models\Post", // foreign key model
+            ]
+
+        ]);
+
+
+
         /*
         |--------------------------------------------------------------------------
         | CrudPanel Configuration
@@ -33,7 +70,7 @@ class CommentCrudController extends CrudController
         */
 
         // TODO: remove setFromDb() and manually define Fields and Columns
-        $this->crud->setFromDb();
+
 
         // add asterisk for fields that are required in CommentRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');

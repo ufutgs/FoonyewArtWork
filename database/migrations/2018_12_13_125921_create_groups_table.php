@@ -15,8 +15,8 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('group_name');
-            $table->json('leader')->nullable();
-            $table->json('emails')->nullable();
+        /*    $table->json('leader')->nullable();
+            $table->json('emails')->nullable();*/
             $table->timestamps();
         });
     }

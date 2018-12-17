@@ -33,7 +33,7 @@ class PostCrudController extends CrudController
         */
         $this->crud->addFields([
             [
-                'label' => "User",
+                'label' => "用户",
                 'type' => 'select2',
                 'name' => 'user_id', // the db column for the foreign key
                 'entity' => 'user', // the method that defines the relationship in your Model
@@ -43,16 +43,16 @@ class PostCrudController extends CrudController
             ],
             [   // TITLE
                 'name' => 'title',
-                'label' => "Title",
+                'label' => "标题",
                 'type' => 'text',
             ],
             [   // DESCRIPTION
                 'name' => 'description',
-                'label' => "Description",
+                'label' => "内容",
                 'type' => 'textarea',
             ],
         [ // POST IMAGE
-            'label' => "Post Image",
+            'label' => "照片",
             'name' => "PostPhoto",
             'type' => 'upload_multiple',
             'upload' => true,
@@ -62,13 +62,13 @@ class PostCrudController extends CrudController
         ],
         [   // VIDEO
             'name' => 'video',
-            'label' => 'Video',
+            'label' => '影片',
             'type' => 'video',
         ]
 ]);
         $this->crud->setColumns([
             [
-                'label' => "User",
+                'label' => "用户",
                 'type' => 'select',
                 'name' => 'user_id', // the db column for the foreign key
                 'entity' => 'user', // the method that defines the relationship in your Model
@@ -78,25 +78,25 @@ class PostCrudController extends CrudController
             ],
                 [   // TITLE
                 'name' => 'title',
-                'label' => "Title",
+                'label' => "标题",
                 'type' => 'text',
             ],
                 [   // DESCRIPTION
                 'name' => 'description',
-                'label' => "Description",
+                'label' => "内容",
                 'type' => 'text',
             ],
             [
-                'label' => "Post Photo",
+                'label' => "照片",
                 'name' => "PostPhoto",
                 'type' => 'upload_multiple',
 
             ],
                 [   // VIDEO
                     'name' => 'video',
-                    'label' => 'Video',
+                    'label' => '影片',
                     'type' => 'video',
-                ]
+                ],
             ]);
         // TODO: remove setFromDb() and manually define Fields and Columns
 

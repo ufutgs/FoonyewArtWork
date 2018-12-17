@@ -13,10 +13,10 @@ Route::group([
 ], function () {
     CRUD::resource('post','PostCrudController');
     CRUD::resource('comment','CommentCrudController');
+    CRUD::resource('vote','VoteCrudController');
     CRUD::resource('forum','ForumCrudController');
     CRUD::resource('event','EventCrudController');
     CRUD::resource('user','UserCrudController');
-    CRUD::resource('admin_back_door_high_five','AdminCrudController');
     CRUD::resource('group','GroupCrudController');
     // custom admin routes
 }); // this should be the absolute last line of this file

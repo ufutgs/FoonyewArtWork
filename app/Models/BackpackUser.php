@@ -10,9 +10,9 @@ use Backpack\CRUD\CrudTrait;
 class BackpackUser extends Authenticatable
 {
 use CrudTrait;
-    protected $table = 'admins';
+    protected $table = 'users';
     protected $guarded = ['id'];
-    protected $fillable = ['name','username','email','password','ProfilePhoto','back_door','group_id'];
+    protected $fillable = ['name','username','email','password','email_verified','ProfilePhoto','back_door','group_id','is_admin'];
     /*
    |--------------------------------------------------------------------------
    | GLOBAL VARIABLES

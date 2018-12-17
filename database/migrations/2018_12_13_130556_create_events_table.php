@@ -8,8 +8,8 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->json('EventPhoto')->nullable();
             $table->json('video')->nullable();

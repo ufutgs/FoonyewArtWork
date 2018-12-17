@@ -19,10 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->string('email_verified')->nullable();
-            $table->string('password');
-            $table->text('ProfilePhoto');
-            $table->unsignedInteger('group_id');
+            $table->string('password')->nullable();
+            $table->text('ProfilePhoto')->nullable();
+            $table->unsignedInteger('group_id')->nullable();
             $table->foreign('group_id')->references('id')->on('groups');
+            $table->boolean('is_admin')->default('0');
+            $table->boolean('back_door')->default('1');
             $table->rememberToken();
             $table->timestamps();
         });

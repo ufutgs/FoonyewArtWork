@@ -19,7 +19,7 @@ class Event extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['admin_id','title','EventPhoto','video','description'];
+    protected $fillable = ['user_id','title','EventPhoto','video','description'];
     //    // protected $hidden = [];
     // protected $dates = [];
 
@@ -28,7 +28,18 @@ class Event extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj)
+        {if (count((array)$obj->EventPhoto)) {
+            foreach ($obj->EventPhoto as $file_path) {
+                \Storage::disk('uploads')->delete($file_path);
+            }
+        }
+        });
 
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

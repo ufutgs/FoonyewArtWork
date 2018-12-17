@@ -33,9 +33,9 @@ class EventCrudController extends CrudController
         */
         $this->crud->addFields([
             [
-                'label' => "User",
+                'label' => "上传者",
                 'type' => 'select2',
-                'name' => 'admin_id', // the db column for the foreign key
+                'name' => 'user_id', // the db column for the foreign key
                 'entity' => 'admin', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 'model' => "App\Models\BackpackUser", // foreign key model
@@ -43,16 +43,16 @@ class EventCrudController extends CrudController
             ],
             [   // TITLE
                 'name' => 'title',
-                'label' => "Title",
+               'label' => "标题",
                 'type' => 'text',
             ],
             [   // DESCRIPTION
                 'name' => 'description',
-                'label' => "Description",
+                'label' => "内容",
                 'type' => 'textarea',
             ],
             [ // POST IMAGE
-                'label' => "Event Photo",
+                'label' => "照片",
                 'name' => "EventPhoto",
                 'type' => 'upload_multiple',
                 'upload' => true,
@@ -62,14 +62,15 @@ class EventCrudController extends CrudController
             ],
             [   // VIDEO
                 'name' => 'video',
-                'label' => 'Video',
+                'label' => '影片',
                 'type' => 'video',
-            ]]);
+            ],
+          ]);
         $this->crud->setColumns([
             [
-                'label' => "User",
+                'label' => "上传者",
                 'type' => 'select',
-                'name' => 'admin_id', // the db column for the foreign key
+                'name' => 'user_id', // the db column for the foreign key
                 'entity' => 'admin', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 'model' => "App\Models\BackpackUser", // foreign key model
@@ -77,23 +78,23 @@ class EventCrudController extends CrudController
             ],
             [   // TITLE
                 'name' => 'title',
-                'label' => "Title",
+                'label' => "标题",
                 'type' => 'text',
             ],
             [   // DESCRIPTION
                 'name' => 'description',
-                'label' => "Description",
+                'label' => "内容",
                 'type' => 'text',
             ],
             [
-                'label' => "Event Photo",
+                'label' => "照片",
                 'name' => "EventPhoto",
                 'type' => 'upload_multiple',
 
             ],
             [   // VIDEO
                 'name' => 'video',
-                'label' => 'Video',
+                'label' => '影片',
                 'type' => 'video',
             ]
         ]);

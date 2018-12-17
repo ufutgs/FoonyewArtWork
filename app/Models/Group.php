@@ -19,13 +19,13 @@ class Group extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['group_name','leader','email'];
+    protected $fillable = ['group_name'];
     // protected $hidden = [];
     // protected $dates = [];
-protected $casts=[
+/*protected $casts=[
     'leader'=>'array',
     'emails'=>'array'
-];
+];*/
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -37,7 +37,14 @@ protected $casts=[
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+public function admins()
+{
+    return $this->hasMany('App\Models\BackpackUser');
+}
+public function users()
+{
+    return $this->hasMany('App\Models\User');
+}
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -56,7 +63,7 @@ protected $casts=[
     |--------------------------------------------------------------------------
     */
 
-    public function setLeaderAttribute()
+  /*  public function setLeaderAttribute()
     {
         $id = Group::all('id');
         $admin_group_id = BackpackUser::all('id');
@@ -64,16 +71,33 @@ protected $casts=[
             if ($admin_group_id->has($ids)==true)
             {
                 $this->attributes['leader'] =BackpackUser::where('group_id','=',$ids)->get('name');
-                $this->attributes['emails']=BackpackUser::where('group_id','=',$ids)->get('email');
+
             }
             else
             {
                 $this->attributes['leader'] =null;
-                $this->attributes['emails']=null;
+
             }
         }
 
     }
 
+public function setEmailsAttribute()
+{
+    $id = Group::all('id');
+    $admin_group_id = BackpackUser::all('id');
+    foreach ($id as $ids) {
+        if ($admin_group_id->has($ids)==true)
+        {
+            $this->attributes['emails'] =BackpackUser::where('group_id','=',$ids)->get('name');
 
+        }
+        else
+        {
+            $this->attributes['emails'] =null;
+
+        }
+    }
+
+}*/
 }

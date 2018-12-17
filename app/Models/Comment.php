@@ -19,7 +19,7 @@ class Comment extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['post_id','user_id','comment','comment_photo'];
+    protected $fillable = ['post_id','user_id','event_id','forum_id','comment','comment_photo'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -28,12 +28,30 @@ class Comment extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($obj) {
+            if (count((array)$obj->CommentPhoto)) {
+                foreach ($obj->CommentPhoto as $file_path) {
+                    \Storage::disk('uploads')->delete($file_path);
+                }
+            }
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+public function user()
+{
+    return $this->belongsTo('App\Models\BackpackUser');
+}
+public function post()
+{
+    return $this->belongsTo('App\Models\Post');
+}
 
     /*
     |--------------------------------------------------------------------------
@@ -52,11 +70,11 @@ class Comment extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function setImageAttribute($value)
+    public function setCommentPhotoAttribute($value)
     {
-        $attribute_name = "comment_photo";
-        $disk = "public_folder";
-        $destination_path = "uploads/folder_1/subfolder_3";
+        $attribute_name = "CommentPhoto";
+        $disk = "uploads";
+        $destination_path = "uploads/comment_photo";
 
         // if the image was erased
         if ($value==null) {

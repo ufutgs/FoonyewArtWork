@@ -37,28 +37,13 @@ $this->crud->addField([
         'label'=>'团体',
         'type'=>'text'
 ]);
-
-$this->crud->setColumns([
+$this->crud->addColumn(
     [
         'name'=>'group_name',
         'label'=>'团体',
         'type'=>'text'
-    ],
-    [
-        'name'=>'leader',
-        'label'=>'会长',
-        'type'=>'model_function_attribute',
-        'function_name'=>'setLeaderAttribute',
-        'attribute'=>'leader'
-    ],
-    [
-        'name'=>'emails',
-        'label'=>'Email',
-        'type'=>'model_function_attribute',
-        'function_name'=>'setLeaderAttribute',
-         'attribute'=>'emails'
     ]
-]);
+ );
         // TODO: remove setFromDb() and manually define Fields and Columns
 
 
