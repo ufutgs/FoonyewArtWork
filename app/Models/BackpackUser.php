@@ -93,7 +93,7 @@ public function group()
     {
         $attribute_name = "ProfilePhoto";
         $disk = "uploads";
-        $destination_path = "uploads/photo";
+        $destination_path = "uploads/profile_photo";
 
         // if the image was erased
         if ($value==null) {

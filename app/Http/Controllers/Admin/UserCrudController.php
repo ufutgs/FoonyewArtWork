@@ -38,6 +38,11 @@ class UserCrudController extends CrudController
                 'label' => "名字",
                 'type' => 'text',
             ],
+            [   // Text
+                'name' => 'username',
+                'label' => "昵称",
+                'type' => 'text',
+            ],
         [   // Text
                 'name' => 'email',
                 'label' => "Email",
@@ -77,6 +82,11 @@ class UserCrudController extends CrudController
                 'label' => "名字",
                 'type' => 'text',
             ],
+                [   // Text
+                    'name' => 'username',
+                    'label' => "昵称",
+                    'type' => 'text',
+                ],
                 [   // Text
                     'name' => 'email',
                     'label' => "Email",

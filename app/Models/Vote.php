@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Comment extends Model
+class Vote extends Model
 {
     use CrudTrait;
 
@@ -15,14 +15,17 @@ class Comment extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'comments';
+    protected $table = 'votes';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    protected $guarded = ['id'];
-    protected $fillable = ['post_id','user_id','comment','comment_photo'];
+    // protected $guarded = ['id'];
+    protected $fillable = ['title','user_id','description','url','VotePhoto','video'];
     // protected $hidden = [];
     // protected $dates = [];
-
+protected $casts=[
+    'VotePhoto'=>'array',
+    'video'=>'array'
+];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -31,28 +34,24 @@ class Comment extends Model
     public static function boot()
     {
         parent::boot();
-        static::deleting(function ($obj) {
-            if (count((array)$obj->CommentPhoto)) {
-                foreach ($obj->CommentPhoto as $file_path) {
-                    \Storage::disk('uploads')->delete($file_path);
-                }
+        static::deleting(function($obj)
+        {if (count((array)$obj->VotePhoto)) {
+            foreach ($obj->VotePhoto as $file_path) {
+                \Storage::disk('uploads')->delete($file_path);
             }
+        }
         });
+
     }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-public function user()
+public function admin()
 {
     return $this->belongsTo('App\Models\BackpackUser');
 }
-public function post()
-{
-    return $this->belongsTo('App\Models\Post');
-}
-
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -70,32 +69,13 @@ public function post()
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function setCommentPhotoAttribute($value)
+    public function setVotePhotoAttribute($value)
     {
-        $attribute_name = "CommentPhoto";
+        $attribute_name = "VotePhoto";
         $disk = "uploads";
-        $destination_path = "uploads/comment_photo";
+        $destination_path = "uploads/vote_photo";
 
-        // if the image was erased
-        if ($value==null) {
-            // delete the image from disk
-            \Storage::disk($disk)->delete($this->{$attribute_name});
-
-            // set null in the database column
-            $this->attributes[$attribute_name] = null;
-        }
-
-        // if a base64 was sent, store it in the db
-        if (starts_with($value, 'data:image'))
-        {
-            // 0. Make the image
-            $image = \Image::make($value);
-            // 1. Generate a filename.
-            $filename = md5($value.time()).'.jpg';
-            // 2. Store the image on disk.
-            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-            // 3. Save the path to the database
-            $this->attributes[$attribute_name] = $destination_path.'/'.$filename;
-        }
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
     }
+
 }
